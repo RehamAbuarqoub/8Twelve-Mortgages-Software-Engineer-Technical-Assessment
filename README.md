@@ -5,7 +5,7 @@
 
 **Created on:** April 22, 2026
 
-## Project Goal
+## The Goal of the Assessment
 
 The goal of this project is to simulate a simple lead intake and qualification system for a mortgage-related business.
 
@@ -20,10 +20,10 @@ The project also integrates the **Groq API** to automatically generate a short *
 
 ## Features
 
-- `POST /leads` — create a new lead
-- `GET /leads` — retrieve all leads
-- `GET /leads/{id}` — retrieve a lead by ID
-- `GET /health` — health check endpoint
+- `POST /leads` -> create a new lead
+- `GET /leads`-> retrieve all leads
+- `GET /leads/{id}`-> retrieve a lead by ID
+- `GET /health` -> health check endpoint
 - filter leads by `source` or `status`
 - AI-generated lead qualification summary using Groq
 - input validation and error handling
@@ -39,20 +39,20 @@ The project also integrates the **Groq API** to automatically generate a short *
 
 ## Project Structure
 
+
 ```text
-lead-intake-api/
+8Twelve-Mortgages-Software-Engineer-Technical-Assessment/
+├── README.md
+├── requirements.txt
+├── .env.example
+├── .gitignore
 ├── app/
 │   ├── app.py
-│   ├── schemas.py
-│   ├── store.py
 │   ├── config.py
+│   ├── store.py
 │   ├── routes/
 │   │   └── leads.py
 │   └── services/
 │       └── groq_service.py
-├── tests/
-│   └── test_api.py
-├── .env.example
-├── .gitignore
-├── requirements.txt
-└── README.md
+└── tests/
+    └── test_api.py
