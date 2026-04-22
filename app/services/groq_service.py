@@ -1,2 +1,40 @@
+from groq import Groq
+from app.config import GROQ_API_KEY, GROQ_MODEL
+
+
 def generate_lead_summary(lead_data):
-    return "Summary not generated yet."
+    if not GROQ_API_KEY:
+        return "AI summary unavailable: missing Groq API key."
+
+    try:
+        client = Groq(api_key=GROQ_API_KEY)
+
+        prompt = f"""
+You are helping assess a mortgage lead.
+
+Based on the following lead information, write a short 2-3 sentence assessment summary.
+
+Lead details:
+- Name: {lead_data.get("name")}
+- Email: {lead_data.get("email")}
+- Phone: {lead_data.get("phone")}
+- Source: {lead_data.get("source")}
+- Status: {lead_data.get("status")}
+
+Keep the summary concise, professional, and useful for a sales or intake team.
+"""
+
+        response = client.chat.completions.create(
+            model=GROQ_MODEL,
+            messages=[
+                {"role": "system", "content": "You write short lead assessment summaries."},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.3,
+            max_tokens=120
+        )
+
+        return response.choices[0].message.content.strip()
+
+    except Exception:
+        return "AI summary unavailable due to Groq API failure."

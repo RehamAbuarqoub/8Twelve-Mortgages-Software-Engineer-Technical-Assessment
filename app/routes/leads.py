@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from uuid import uuid4
 from app.store import leads_db
+from app.services.groq_service import generate_lead_summary
 
 leads_bp = Blueprint("leads", __name__)
 
@@ -52,6 +53,8 @@ def create_lead():
         "status": status,
         "summary": None
     }
+
+    new_lead["summary"] = generate_lead_summary(new_lead)
 
     leads_db[lead_id] = new_lead
 
