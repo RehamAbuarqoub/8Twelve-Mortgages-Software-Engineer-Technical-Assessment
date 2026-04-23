@@ -45,3 +45,47 @@ Rules:
 
     except Exception:
         return "AI summary unavailable due to Groq API failure."
+
+
+def generate_next_step_suggestion(lead_data):
+    if not GROQ_API_KEY:
+        return "AI next step suggestion unavailable: missing Groq API key."
+
+    try:
+        client = Groq(api_key=GROQ_API_KEY)
+
+        prompt = f"""
+You are helping assess a mortgage lead.
+
+Based on the following lead information, suggest one short and practical next step for the sales or intake team.
+
+Lead details:
+- Name: {lead_data.get("name")}
+- Email: {lead_data.get("email")}
+- Phone: {lead_data.get("phone")}
+- Source: {lead_data.get("source")}
+- Status: {lead_data.get("status")}
+
+Rules:
+1. Return only the suggestion text.
+2. Do not add titles, headings, labels, quotation marks, or introductions.
+3. Use only the provided details.
+4. Do not assume intent, urgency, budget, or any missing information.
+5. Keep it short, clear, practical, and professional.
+6. If the information is limited or unclear, suggest a simple follow-up or verification step.
+"""
+
+        response = client.chat.completions.create(
+            model=GROQ_MODEL,
+            messages=[
+                {"role": "system", "content": "You write short and practical next-step suggestions for new leads."},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.3,
+            max_tokens=60
+        )
+
+        return response.choices[0].message.content.strip()
+
+    except Exception:
+        return "AI next step suggestion unavailable due to Groq API failure."
