@@ -17,6 +17,24 @@ This REST API allows users to:
 - check the health of the service
 
 The project also integrates the **Groq API** to automatically generate a short **lead qualification summary** when a new lead is created. This helps demonstrate how AI can support lead review and follow-up in a real business workflow.
+## How to run:
+1. Open the project folder in Visual Studio Code.
+
+2. Press `Ctrl + Shift + P`, then search for `Python: Create Environment`.
+
+3. Select:
+   - `Venv`
+   - your preferred Python version
+
+4. Open a new terminal in VS Code:
+   `Terminal > New Terminal`
+
+5. Activate the virtual environment on Windows:
+
+   ```bash
+   .\.venv\Scripts\activate
+pip install -r requirements.txt
+
 
 ## Features
 
