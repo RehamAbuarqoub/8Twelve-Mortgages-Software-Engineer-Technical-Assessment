@@ -2,19 +2,13 @@ from groq import Groq
 from app.config import GROQ_API_KEY, GROQ_MODEL
 
 
-# AI Option A:
-# This function creates a short summary for a new lead using Groq.
 def generate_lead_summary(lead_data):
-    # Stop if the Groq API key is missing
     if not GROQ_API_KEY:
         return "AI summary unavailable: missing Groq API key."
 
     try:
-        # Create the Groq client
         client = Groq(api_key=GROQ_API_KEY)
 
-        # AI Option A:
-        # Build the prompt that asks Groq to write a short lead summary
         prompt = f"""
 You are helping assess a mortgage lead.
 
@@ -27,11 +21,16 @@ Lead details:
 - Source: {lead_data.get("source")}
 - Status: {lead_data.get("status")}
 
-Keep the summary concise, professional, and useful for a sales or intake team.
+Rules:
+1. Return only the summary text.
+2. Do not add titles, headings, labels, quotation marks, or introductions.
+3. Do not say phrases like "Here’s a summary" or "Lead Assessment Summary".
+4. Use only the provided details.
+5. Do not assume intent, interest level, or any missing information.
+6. If contact details appear unusual or unclear, mention that they may need verification.
+7. Keep it concise, clear, and professional.
 """
 
-        # AI Option A:
-        # Send the lead data to Groq and get the summary back
         response = client.chat.completions.create(
             model=GROQ_MODEL,
             messages=[
@@ -42,9 +41,7 @@ Keep the summary concise, professional, and useful for a sales or intake team.
             max_tokens=120
         )
 
-        # Return the AI summary text
         return response.choices[0].message.content.strip()
 
     except Exception:
-        # Return a fallback message if the AI request fails
         return "AI summary unavailable due to Groq API failure."
