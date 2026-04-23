@@ -12,7 +12,7 @@ def generate_lead_summary(lead_data):
         prompt = f"""
 You are helping assess a mortgage lead.
 
-Based on the following lead information, write a short 2-3 sentence assessment summary.
+Based on the following lead information, write a short 2-3 sentence lead assessment summary.
 
 Lead details:
 - Name: {lead_data.get("name")}
