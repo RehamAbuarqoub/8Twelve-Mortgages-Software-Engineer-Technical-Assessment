@@ -68,8 +68,9 @@ def create_lead():
         "summary": None,
         "next_step": None
     }
-
-    # Create AI summary and next-step suggestion
+# AI section (Option A):
+   
+    # Create  summary and next-step suggestion
     new_lead["summary"] = generate_lead_summary(new_lead)
     new_lead["next_step"] = generate_next_step_suggestion(new_lead)
 
