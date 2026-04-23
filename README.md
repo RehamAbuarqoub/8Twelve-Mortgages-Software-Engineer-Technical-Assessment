@@ -44,15 +44,20 @@ The project also integrates the **Groq API** to automatically generate a short *
 8Twelve-Mortgages-Software-Engineer-Technical-Assessment/
 ├── README.md
 ├── requirements.txt
+├── .env
 ├── .env.example
 ├── .gitignore
 ├── app/
+│   ├── __init__.py
 │   ├── app.py
 │   ├── config.py
 │   ├── store.py
 │   ├── routes/
+│   │   ├── __init__.py
 │   │   └── leads.py
 │   └── services/
+│       ├── __init__.py
 │       └── groq_service.py
 └── tests/
+    ├── __init__.py
     └── test_api.py
