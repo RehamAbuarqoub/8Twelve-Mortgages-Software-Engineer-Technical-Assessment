@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from uuid import uuid4
 
 from app.store import leads_db
-from app.services.groq_service import generate_lead_summary
+from app.services.groq_service import generate_lead_summary, generate_next_step_suggestion
 
 # This blueprint holds all lead routes
 leads_bp = Blueprint("leads", __name__)
@@ -65,12 +65,13 @@ def create_lead():
         "phone": phone,
         "source": source.strip(),
         "status": status,
-        "summary": None
+        "summary": None,
+        "next_step": None
     }
 
-    # AI section (Option A):
-    # Create a short lead summary using Groq and save it with the lead
+    # Create AI summary and next-step suggestion
     new_lead["summary"] = generate_lead_summary(new_lead)
+    new_lead["next_step"] = generate_next_step_suggestion(new_lead)
 
     # Save the lead in memory
     leads_db[lead_id] = new_lead
